@@ -1,0 +1,38 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Header Design*/
+#header {
+  display: flex;
+  justify-content: space-between;
+  background-color: cornflowerblue;
+  padding: 5px;
+}
+
+#header div {
+  font-size: 2rem;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+#highscores:hover {
+  background-color: mediumvioletred;
+  color: white;
+}
+
+/*Quiz Section Design*/
+section {
+  display: flex;
+  justify-content: center;
+  padding-top: 10rem;
+}
+
+#startnext {
+  color: tomato;
+  font-size: 1.5rem;
+  width: 200px;
+  background-color: royalblue;
+  border: none;
+  border-radius: 5px;
+}
