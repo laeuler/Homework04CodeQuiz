@@ -2,12 +2,17 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+  background: rgb(243, 240, 240);
+}
+
 /*Header Design*/
 #header {
   display: flex;
   justify-content: space-between;
-  background-color: cornflowerblue;
+  background-color: royalblue;
   padding: 5px;
+  color: aliceblue;
 }
 
 #header div {
@@ -23,16 +28,76 @@
 
 /*Quiz Section Design*/
 section {
+  padding-top: 10rem;
   display: flex;
   justify-content: center;
-  padding-top: 10rem;
 }
 
 #startnext {
-  color: tomato;
-  font-size: 1.5rem;
-  width: 200px;
+  color: snow;
+  font-size: 2rem;
+  width: inherit;
+  overflow: hidden;
   background-color: royalblue;
   border: none;
   border-radius: 5px;
+  padding: 5px;
+}
+
+#quizarea {
+  background: snow;
+  width: 600px;
+  max-width: 60%;
+  border-radius: 5px;
+  flex-wrap: wrap;
+}
+
+#quizcontent {
+  padding: 5px;
+}
+
+/*show and hide*/
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: inherit;
+}
+
+/*Question Content Styling*/
+#questionarea {
+  background: snow;
+  width: 600px;
+  max-width: 60%;
+  border-radius: 5px;
+  flex-wrap: wrap;
+}
+
+#questioncontent {
+  width: inherit;
+  position: relative;
+}
+
+#questioncontent h2 {
+  height: 3rem;
+  padding: 5px;
+  font-size: 2rem;
+  color: royalblue;
+}
+
+#questioncontent p {
+  border: lightcoral solid 1px;
+  border-radius: 5px;
+  width: inherit;
+  overflow: hidden;
+  padding: 5px;
+  font-size: 1.5rem;
+  height: 2rem;
+}
+
+#questioncontent p:hover {
+  background-color: lightcoral;
+  opacity: 0.75;
+  transition: 0.2s;
 }

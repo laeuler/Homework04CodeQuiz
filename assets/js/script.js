@@ -1,7 +1,10 @@
 //assign elements
 var timerEL = document.getElementById("timeleft");
 var startEL = document.getElementById("startnext");
-var minusEL = document.getElementById("testminus");
+var highEL = document.getElementById("highscores");
+var quizA = document.getElementById("quizarea");
+var highA = document.getElementById("highscorearea");
+var backBtn = document.getElementById("back");
 
 //Array with Quiz Questions Objects
 
@@ -66,6 +69,7 @@ function countdown() {
       console.log(timeLeft);
       timerEL.textContent = "Time left: " + timeLeft + "s";
       timeLeft--;
+      timerColor();
     } else {
       timerEL.textContent = "Time's up!";
       clearInterval(timeInterval);
@@ -79,6 +83,29 @@ function minusten() {
   console.log(timeLeft);
 }
 
+function timerColor() {
+  //indicate time left with color coding
+  if (timeLeft >= 40) {
+    timerEL.style.color = "#83c165";
+  } else if (timeLeft >= 20) {
+    timerEL.style.color = "#ffa500";
+  } else if (timeLeft < 20) {
+    timerEL.style.color = "#f44336";
+  }
+}
+
+//Switch to HighScores Page
+function seeHighScores() {
+  quizA.setAttribute("class", "hidden");
+  highA.setAttribute("class", "visible");
+}
+
+function backToGame() {
+  quizA.setAttribute("class", "visible");
+  highA.setAttribute("class", "hidden");
+}
+
 //add event handler
 startEL.addEventListener("click", countdown);
-minusEL.addEventListener("click", minusten);
+highEL.addEventListener("click", seeHighScores);
+backBtn.addEventListener("click", backToGame);
