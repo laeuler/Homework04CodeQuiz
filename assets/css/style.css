@@ -1,5 +1,6 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
+  box-sizing: content-box;
 }
 
 body {
@@ -10,7 +11,7 @@ body {
 #header {
   display: flex;
   justify-content: space-between;
-  background-color: royalblue;
+  background-color: rgb(39, 47, 73);
   padding: 5px;
   color: aliceblue;
 }
@@ -22,8 +23,9 @@ body {
 }
 
 #highscores:hover {
-  background-color: mediumvioletred;
+  background-color: salmon;
   color: white;
+  border-radius: 5px;
 }
 
 /*Quiz Section Design*/
@@ -34,14 +36,8 @@ section {
 }
 
 #startnext {
-  color: snow;
-  font-size: 2rem;
   width: inherit;
   overflow: hidden;
-  background-color: royalblue;
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
 }
 
 #quizarea {
@@ -82,22 +78,53 @@ section {
 #questioncontent h2 {
   height: 3rem;
   padding: 5px;
+  padding-bottom: 3rem;
   font-size: 2rem;
-  color: royalblue;
+  color: rgb(39, 47, 73);
 }
 
 #questioncontent p {
-  border: lightcoral solid 1px;
+  border: salmon solid 1px;
   border-radius: 5px;
-  width: inherit;
   overflow: hidden;
   padding: 5px;
   font-size: 1.5rem;
   height: 2rem;
+  box-sizing: content-box;
 }
 
 #questioncontent p:hover {
-  background-color: lightcoral;
+  background-color: salmon;
   opacity: 0.75;
   transition: 0.2s;
+  color: white;
+}
+
+.btn {
+  padding-top: 3rem;
+  color: snow;
+  font-size: 2rem;
+  overflow: hidden;
+  background-color: rgb(39, 47, 73);
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.btn:hover {
+  background-color: salmon;
+  transition: 0.2s;
+  color: white;
+}
+
+h2 {
+  height: 3rem;
+  padding: 5px;
+  padding-bottom: 3rem;
+  font-size: 2rem;
+  color: rgb(39, 47, 73);
+}
+
+#gameScore{
+    font-size: 4rem;
 }
