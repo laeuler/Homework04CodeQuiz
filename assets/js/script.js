@@ -1,4 +1,4 @@
-//assign elements
+//Assignment of misc. elements
 var timerEL = document.getElementById("timeleft");
 var startEL = document.getElementById("startnext");
 var highEL = document.getElementById("highscores");
@@ -7,19 +7,20 @@ var scoreEL = document.getElementById("gameScore");
 var saveBtn = document.getElementById("save");
 var clearBtn = document.getElementById("clear");
 
-//Pages
+//Areas in DOM simulate the different pages in the UX
 var quizA = document.getElementById("quizarea");
 var highA = document.getElementById("highscorearea");
 var questionA = document.getElementById("questionarea");
 var scoreA = document.getElementById("scorearea");
 
-//assign elements for questions
+//Assign Elements to load questions to the right element
 var questionEL = document.getElementById("question");
 var answerEL = document.querySelectorAll(".answer");
 var answerA_EL = document.getElementById("answerA");
 var answerB_EL = document.getElementById("answerB");
 var answerC_EL = document.getElementById("answerC");
 var answerD_EL = document.getElementById("answerD");
+var questionCont = document.getElementById("questioncontent");
 
 //highscores
 var scEL1 = document.getElementById("score1");
@@ -147,57 +148,22 @@ function getQuestion() {
   }
 }
 //============================================== Evaluate Answers
-//evaluate answer A
-function evaluateAnswerA() {
-  //check if the answer is the correct one
+//evaluate answer
+function evaluateAnswer(event) {
+  var givenAnswer = event.target.id;
+  //check if the answer is the correct one, we have to deduct -1 since we increase the question count after loading the question
   var getQuestionData = quizQuestions[questionCount - 1];
   var correctAnswer = getQuestionData.correct;
 
-  if (correctAnswer === "answerA") {
+  console.log(
+    "correct Answer " + correctAnswer + " , " + "given Answer :" + givenAnswer
+  );
+
+  if (correctAnswer === givenAnswer) {
+    console.log("correct");
     getQuestion();
   } else {
-    minusten();
-    getQuestion();
-  }
-}
-
-//evaluate answer B
-function evaluateAnswerB() {
-  //check if the answer is the correct one
-  var getQuestionData = quizQuestions[questionCount - 1];
-  var correctAnswer = getQuestionData.correct;
-
-  if (correctAnswer === "answerB") {
-    getQuestion();
-  } else {
-    minusten();
-    getQuestion();
-  }
-}
-
-//evaluate answer C
-function evaluateAnswerC() {
-  //check if the answer is the correct one
-  var getQuestionData = quizQuestions[questionCount - 1];
-  var correctAnswer = getQuestionData.correct;
-
-  if (correctAnswer === "answerC") {
-    getQuestion();
-  } else {
-    minusten();
-    getQuestion();
-  }
-}
-
-//evaluate answer D
-function evaluateAnswerD() {
-  //check if the answer is the correct one
-  var getQuestionData = quizQuestions[questionCount - 1];
-  var correctAnswer = getQuestionData.correct;
-
-  if (correctAnswer === "answerD") {
-    getQuestion();
-  } else {
+    console.log("wrong");
     minusten();
     getQuestion();
   }
@@ -209,7 +175,7 @@ function saveScore() {
 
   localStorage.setItem("initials1", initials);
   localStorage.setItem("score1", gameScore);
-  timerEL.textContent = ""
+  timerEL.textContent = "";
 
   seeHighScores();
 }
@@ -253,15 +219,13 @@ function showGameScore() {
 
   scoreEL.textContent = gameScore;
 }
-//============================================== add event handler
+//============================================== Event Handler
+//Navigation Items
 startEL.addEventListener("click", startGame);
 highEL.addEventListener("click", seeHighScores);
 backBtn.addEventListener("click", backToGame);
 saveBtn.addEventListener("click", saveScore);
 clearBtn.addEventListener("click", clearLocal);
 
-//click on answers
-answerA_EL.addEventListener("click", evaluateAnswerA);
-answerB_EL.addEventListener("click", evaluateAnswerB);
-answerC_EL.addEventListener("click", evaluateAnswerC);
-answerD_EL.addEventListener("click", evaluateAnswerD);
+//Click on Question
+questionCont.addEventListener("click", evaluateAnswer);
