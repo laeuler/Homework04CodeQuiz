@@ -1,7 +1,7 @@
 //Assignment of misc. elements
 var timerEL = document.getElementById("timeleft");
-var startEL = document.getElementById("startnext");
 var highEL = document.getElementById("highscores");
+var startEL = document.getElementById("startnext");
 var backBtn = document.getElementById("back");
 var scoreEL = document.getElementById("gameScore");
 var saveBtn = document.getElementById("save");
@@ -21,6 +21,7 @@ var answerB_EL = document.getElementById("answerB");
 var answerC_EL = document.getElementById("answerC");
 var answerD_EL = document.getElementById("answerD");
 var questionCont = document.getElementById("questioncontent");
+var feedbackEL = document.getElementById("feedback");
 
 //highscores
 var scEL1 = document.getElementById("score1");
@@ -161,12 +162,32 @@ function evaluateAnswer(event) {
 
   if (correctAnswer === givenAnswer) {
     console.log("correct");
+    positiveFeedback();
     getQuestion();
   } else {
+    negativeFeedback();
     console.log("wrong");
     minusten();
     getQuestion();
   }
+}
+
+function positiveFeedback() {
+  console.log("correct");
+  feedbackEL.textContent = "Correct! :-)";
+  feedbackEL.style.color = "green";
+  setTimeout(hideElement, 1000);
+}
+
+function negativeFeedback() {
+  console.log("wrong");
+  feedbackEL.textContent = "Wrong! :-/";
+  feedbackEL.style.color = "red";
+  setTimeout(hideElement, 1000);
+}
+
+function hideElement() {
+  feedbackEL.textContent = "";
 }
 //============================================== Local Storage Handling
 //Store the Highscore
