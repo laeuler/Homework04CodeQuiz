@@ -77,11 +77,14 @@ const quizQuestions = [
 ];
 //============================================== Start the game
 function startGame() {
+  //set all counts to zero and reset timer
   questionCount = 0;
   gameScore = 0;
   timeLeft = 75;
+  //start countdown and laod questions
   countdown();
   getQuestion();
+  //jump to game UI + hide option to jump to highscores mid game
   seeGame();
 }
 
@@ -103,6 +106,7 @@ function countdown() {
     } else {
       timerEL.textContent = "Time's up!";
       clearInterval(timeInterval);
+      setTimeout(showGameScore, 1000);
     }
   }
 }
@@ -142,10 +146,8 @@ function getQuestion() {
   } else {
     //get score
     gameScore = timeLeft;
-    // and store it to local memory
-    //stop timer
     //show result page
-    showGameScore();
+    setTimeout(showGameScore, 1000);
   }
 }
 //============================================== Evaluate Answers
@@ -181,7 +183,7 @@ function positiveFeedback() {
 
 function negativeFeedback() {
   console.log("wrong");
-  feedbackEL.textContent = "Wrong! :-/";
+  feedbackEL.textContent = "Wrong! -10s :-/";
   feedbackEL.style.color = "red";
   setTimeout(hideElement, 1000);
 }
@@ -219,6 +221,7 @@ function seeHighScores() {
 }
 
 function backToGame() {
+  highA.setAttribute("class", "visible");
   quizA.setAttribute("class", "visible");
   highA.setAttribute("class", "hidden");
   questionA.setAttribute("class", "hidden");
@@ -230,6 +233,7 @@ function seeGame() {
   highA.setAttribute("class", "hidden");
   questionA.setAttribute("class", "visible");
   scoreA.setAttribute("class", "hidden");
+  highEL.setAttribute("class", "hidden");
 }
 
 function showGameScore() {
@@ -237,8 +241,10 @@ function showGameScore() {
   highA.setAttribute("class", "hidden");
   questionA.setAttribute("class", "hidden");
   scoreA.setAttribute("class", "visible");
+  highEL.setAttribute("class", "visible");
 
   scoreEL.textContent = gameScore;
+  timerEL.textContent = "";
 }
 //============================================== Event Handler
 //Navigation Items
