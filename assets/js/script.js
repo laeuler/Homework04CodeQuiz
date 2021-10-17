@@ -6,6 +6,7 @@ var backBtn = document.getElementById("back");
 var scoreEL = document.getElementById("gameScore");
 var saveBtn = document.getElementById("save");
 var clearBtn = document.getElementById("clear");
+var rankEL = document.getElementById("ranking");
 
 //Areas in DOM simulate the different pages in the UX
 var quizA = document.getElementById("quizarea");
@@ -23,9 +24,13 @@ var answerD_EL = document.getElementById("answerD");
 var questionCont = document.getElementById("questioncontent");
 var feedbackEL = document.getElementById("feedback");
 
-//highscores
+//highscore ranking
 var scEL1 = document.getElementById("score1");
 var inEL1 = document.getElementById("initials1");
+var scEL2 = document.getElementById("score2");
+var inEL2 = document.getElementById("initials2");
+var scEL3 = document.getElementById("score3");
+var inEL3 = document.getElementById("initials3");
 
 //============================================== Array with Quiz Questions Objects
 const quizQuestions = [
@@ -102,7 +107,6 @@ function countdown() {
       timerEL.textContent = "Time left: " + timeLeft + "s";
       timeLeft--;
       timerColor();
-      console.log(gameScore);
     } else {
       timerEL.textContent = "Time's up!";
       clearInterval(timeInterval);
@@ -142,7 +146,6 @@ function getQuestion() {
     answerD_EL.textContent = getQuestionData.d;
 
     questionCount++;
-    console.log(questionCount);
   } else {
     //get score
     gameScore = timeLeft;
@@ -163,12 +166,10 @@ function evaluateAnswer(event) {
   );
 
   if (correctAnswer === givenAnswer) {
-    console.log("correct");
     positiveFeedback();
     getQuestion();
   } else {
     negativeFeedback();
-    console.log("wrong");
     minusten();
     getQuestion();
   }
@@ -191,15 +192,155 @@ function negativeFeedback() {
 function hideElement() {
   feedbackEL.textContent = "";
 }
-//============================================== Local Storage Handling
-//Store the Highscore
-function saveScore() {
-  var initials = prompt("Please type in your initials");
+//============================================== Local Storage Handling and Ranking
+//give the user feedback about his/her ranking
+function feedbackRanking() {
+  saveBtn.textContent = "Save your score now";
+  //get local storage
+  var placeOne = localStorage.getItem("score1");
+  var placeTwo = localStorage.getItem("score2");
+  var placeThree = localStorage.getItem("score3");
 
-  localStorage.setItem("initials1", initials);
+  console.log(placeOne);
+  console.log(placeTwo);
+  console.log(placeThree);
+  console.log(gameScore);
+
+  //first loop: check how many local higscores are exisiting
+  //second loop within: check the rank within the existing higscore
+
+  if (placeOne == null) {
+    //new highscore
+    rankEL.textContent = "yeah 1st place!";
+  } else if (placeTwo == null) {
+    if (gameScore >= placeOne) {
+      //new highscore
+      rankEL.textContent = "yeah 1st place!";
+    } else {
+      //second place
+      rankEL.textContent = "Strong! 2nd place!";
+    }
+  } else if (placeThree == null) {
+    if (gameScore >= placeOne) {
+      //new higscore
+      rankEL.textContent = "yeah 1st place!";
+    } else if (gameScore >= placeTwo) {
+      // second place
+      rankEL.textContent = "Strong! 2nd place!";
+    } else {
+      //third place
+      rankEL.textContent = "Nice! You made it to the Olymp!";
+    }
+  } else {
+    if (gameScore >= placeOne) {
+      //new higscore
+      rankEL.textContent = "yeah 1st place!";
+    } else if (gameScore >= placeTwo) {
+      // second place
+      rankEL.textContent = "Strong! 2nd place!";
+    } else if (gameScore >= placeThree) {
+      //third place
+      rankEL.textContent = "Nice! You made it to the Olymp!";
+    } else {
+      rankEL.textContent = "So close. No new highscore.";
+      //make button to try again
+      saveBtn.textContent = "Try again!";
+    }
+  }
+}
+
+//higscore is rank 1
+function newOne() {
+  var initials = localStorage.getItem("latest");
+  //#3 = old #2
+  if (localStorage.getItem("score2") != null) {
+    localStorage.setItem("score3", localStorage.getItem("score2"));
+    localStorage.setItem("initials3", localStorage.getItem("initials2"));
+  }
+  //#2 = old #1
+  if (localStorage.getItem("score1") != null) {
+    localStorage.setItem("score2", localStorage.getItem("score1"));
+    localStorage.setItem("initials2", localStorage.getItem("initials1"));
+  }
+  // new #1
   localStorage.setItem("score1", gameScore);
-  timerEL.textContent = "";
+  localStorage.setItem("initials1", initials);
+}
+//higscore is rank 2
+function newTwo() {
+  var initials = localStorage.getItem("latest");
+  //#1 stays the same
+  //#3 = old #2
+  if (localStorage.getItem("score1") != null) {
+    localStorage.setItem("score3", localStorage.getItem("score2"));
+    localStorage.setItem("initials3", localStorage.getItem("initials2"));
+  }
+  //new #2
+  localStorage.setItem("score2", gameScore);
+  localStorage.setItem("initials2", initials);
+}
+//Highscore is rank 3
+function newThree() {
+  var initials = localStorage.getItem("latest");
+  //#1 stays the same
+  //#2 stays the same
+  //new #2
+  localStorage.setItem("score3", gameScore);
+  localStorage.setItem("initials3", initials);
+}
 
+//save the ranking
+function saveScore() {
+  if (saveBtn.textContent == "Try again!") {
+    startGame();
+    return;
+  }
+
+  var initials = prompt("Please type in your initials");
+  localStorage.setItem("latest", initials);
+  //get local storage
+  var placeOne = localStorage.getItem("score1");
+  var placeTwo = localStorage.getItem("score2");
+  var placeThree = localStorage.getItem("score3");
+
+  //first loop: check how many local higscores are exisiting
+  //second loop within: check the rank within the existing higscore
+
+  if (placeOne == null) {
+    //new highscore
+    newOne();
+  } else if (placeTwo == null) {
+    if (gameScore >= placeOne) {
+      //new highscore
+      newOne();
+    } else {
+      //second place
+      newTwo();
+    }
+  } else if (placeThree == null) {
+    if (gameScore >= placeOne) {
+      //new higscore
+      newOne();
+    } else if (gameScore >= placeTwo) {
+      // second place
+      newTwo();
+    } else {
+      //third place
+      newThree();
+    }
+  } else {
+    if (gameScore >= placeOne) {
+      //new higscore
+      newOne();
+    } else if (gameScore >= placeTwo) {
+      // second place
+      newTwo();
+    } else if (gameScore >= placeThree) {
+      //third place
+      newThree();
+    }
+  }
+  //jump to higscore page afterwards
   seeHighScores();
 }
 
@@ -216,8 +357,15 @@ function seeHighScores() {
   questionA.setAttribute("class", "hidden");
   scoreA.setAttribute("class", "hidden");
 
+  //get highscore list from local storage
   scEL1.textContent = localStorage.getItem("score1");
   inEL1.textContent = localStorage.getItem("initials1");
+
+  scEL2.textContent = localStorage.getItem("score2");
+  inEL2.textContent = localStorage.getItem("initials2");
+
+  scEL3.textContent = localStorage.getItem("score3");
+  inEL3.textContent = localStorage.getItem("initials3");
 }
 
 function backToGame() {
@@ -245,6 +393,8 @@ function showGameScore() {
 
   scoreEL.textContent = gameScore;
   timerEL.textContent = "";
+
+  feedbackRanking();
 }
 //============================================== Event Handler
 //Navigation Items
