@@ -1,13 +1,16 @@
+/*========================================= Generic =========================================*/
 * {
   font-family: Arial, Helvetica, sans-serif;
+  /*bootstrap is interfering during game with the box styling*/
   box-sizing: content-box;
 }
 
+/*background of the body*/
 body {
   background: rgb(243, 240, 240);
 }
 
-/*Header Design*/
+/*========================================= Header Design =========================================*/
 #header {
   display: flex;
   justify-content: space-between;
@@ -22,24 +25,36 @@ body {
   padding-left: 20px;
 }
 
+/*When I hover over the Higscores in the header, indication that it is clickable*/
 #highscores:hover {
   background-color: salmon;
   color: white;
   border-radius: 5px;
 }
+/*========================================= Show & Hide through class toggle =========================================*/
+.hidden {
+  display: none;
+}
 
-/*Quiz Section Design*/
+.visible {
+  display: inherit;
+}
+
+/*========================================= Start Section Design =========================================*/
+/*Positioning of the box in the middle of the screen*/
 section {
   padding-top: 10rem;
   display: flex;
   justify-content: center;
 }
 
+/*Styling of the start button */
 #startnext {
   width: inherit;
   overflow: hidden;
 }
 
+/*Styling of the centered Box in the middle of the screen*/
 #quizarea {
   background: snow;
   width: 600px;
@@ -52,16 +67,8 @@ section {
   padding: 5px;
 }
 
-/*show and hide*/
-.hidden {
-  display: none;
-}
-
-.visible {
-  display: inherit;
-}
-
-/*Question Content Styling*/
+/*========================================= Question Styling during Game =========================================*/
+/*Centered Box in the middle of the screen*/
 #questionarea {
   background: snow;
   width: 600px;
@@ -69,20 +76,22 @@ section {
   border-radius: 5px;
   flex-wrap: wrap;
 }
-
+/*text in centered Box*/
 #questioncontent {
   width: inherit;
   position: relative;
 }
 
+/*Question Styling*/
 #questioncontent h2 {
   height: 3rem;
   padding: 5px;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   font-size: 2rem;
   color: rgb(39, 47, 73);
 }
 
+/*Asnwer options to choose*/
 #questioncontent p {
   border: salmon solid 1px;
   border-radius: 5px;
@@ -92,7 +101,7 @@ section {
   height: 2rem;
   box-sizing: content-box;
 }
-
+/*Indication which option I am about to select*/
 #questioncontent p:hover {
   background-color: salmon;
   opacity: 0.75;
@@ -111,6 +120,7 @@ section {
   padding: 5px;
 }
 
+/*========================================= Styling of Back, Clear, Save and Try Again Button =========================================*/
 .btn:hover {
   background-color: salmon;
   transition: 0.2s;
@@ -125,18 +135,22 @@ h2 {
   color: rgb(39, 47, 73);
 }
 
-#gameScore{
-    font-size: 4rem;
+/*========================================= Styling of Specific Elements in the UI =========================================*/
+/*Make final score bigger*/
+#gameScore {
+  font-size: 4rem;
+}
+/*Increase size of ranking feedback of the score*/
+#ranking {
+  font-size: 1.5rem;
 }
 
+/*Make feedback during quiz (correct or wrong) bigger*/
 #feedback {
   font-size: 2rem;
 }
 
-#placeholder{
-  color:rgb(39, 47, 73); ;
-}
-
-#ranking{
-  font-size: 1.5rem;
+/*without the placeholder the nav section would disappear shortly before the timer starts once I hide the Highligts*/
+#placeholder {
+  color: rgb(39, 47, 73);
 }
